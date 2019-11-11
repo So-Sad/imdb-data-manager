@@ -1,3 +1,3 @@
 # Диаграмма классов
 
-![Диаграмма классов](../../../Images/Diagrams/class_diagram.PNG)
+![Диаграмма классов](../../../Images/Diagrams/class.PNG)
