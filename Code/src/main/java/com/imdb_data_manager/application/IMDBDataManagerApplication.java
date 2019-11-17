@@ -20,7 +20,7 @@ public class IMDBDataManagerApplication extends Application {
         Parent fxmlMain = fxmlLoader.load();
         Scene scene = new Scene(fxmlMain, 620, 620);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("COM-ports_app");
+        primaryStage.setTitle("IMDb Data Manager");
         primaryStage.setMinWidth(620);
         primaryStage.setMinHeight(620);
         primaryStage.setResizable(false);
