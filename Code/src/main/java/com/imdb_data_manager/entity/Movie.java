@@ -6,12 +6,14 @@ public class Movie {
     private String description;
     private String genre;
     private String director;
+    private String rating;
 
-    public Movie(String name, String description, String genre, String director) {
+    public Movie(String name, String description, String genre, String director, String rating) {
         this.name = name;
         this.description = description;
         this.genre = genre;
         this.director = director;
+        this.rating = rating;
     }
 
     public String getName() {
@@ -44,5 +46,13 @@ public class Movie {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }
