@@ -5,6 +5,8 @@ import main.java.com.imdb_data_manager.list.Watchlist;
 
 public class Account {
 
+    public static String APIKEY = "c712d04b";
+
     private String login;
     private String password;
     private Watchlist watchlist;

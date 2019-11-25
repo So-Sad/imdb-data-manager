@@ -9,8 +9,21 @@ public class MovieList {
 
     private List<Movie> movies = new ArrayList<>();
 
+    public MovieList() {
+    }
+
     public MovieList(List<Movie> movies) {
         this.movies = movies;
+    }
+
+    public boolean addMovie(Movie movie){
+        if(movies.contains(movie)){
+            return false;
+        }
+        else {
+            movies.add(movie);
+            return true;
+        }
     }
 
     public List<Movie> getMovies() {
