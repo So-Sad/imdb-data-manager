@@ -19,9 +19,9 @@
         </Label>
             <Line endX="539.0" layoutX="100.0" layoutY="40.0" startX="-100.0" />
             <Line endX="539.0" layoutX="100.0" layoutY="580.0" startX="-100.0" />
-            <Button fx:id="signInBtn" layoutX="290.0" layoutY="380.0" mnemonicParsing="false" text="Sing In" />
+            <Button fx:id="signInBtn" onAction="#setSignInBtn" layoutX="290.0" layoutY="380.0" mnemonicParsing="false" text="Sing In" />
             <TextField fx:id="loginField" layoutX="188.0" layoutY="321.0" prefHeight="31.0" prefWidth="270.0" />
-            <Button fx:id="skipBtn" layoutX="521.0" layoutY="506.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Skip" />
+            <Button fx:id="skipBtn" onAction="#setSkipBtn" layoutX="521.0" layoutY="506.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Skip" />
       </children>
     </AnchorPane>
   </children>

@@ -9,9 +9,12 @@ public class Account {
     public static String APIKEY = "c712d04b";
 
     private String nickName;
-    private String login;
+    private String login; //ur108105157
     private MovieList watchlist;
     private MovieList rating;
+
+    public Account() {
+    }
 
     public Account(String login, MovieList watchlist, MovieList rating) {
         this.login = login;

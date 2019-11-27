@@ -11,6 +11,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,12 +56,12 @@ public class AccountService {
         Pattern pattern = Pattern.compile("\"title\":\".+?\"},\"episode\"");
         Matcher matcher;
         try {
-            Document doc = Jsoup.connect("https://www.imdb.com/user/ur108105157/watchlist").get();
+            Document doc = Jsoup.connect("https://www.imdb.com/user/" + account.getLogin() + "/watchlist").get();
             docString = doc.toString();
             matcher = pattern.matcher(docString);
-            while (matcher.find()){
+            while (matcher.find()) {
                 watchlistTitle = docString.substring(matcher.start(), matcher.end());
-                watchlistTitle = watchlistTitle.substring(9, watchlistTitle.length()-12);
+                watchlistTitle = watchlistTitle.substring(9, watchlistTitle.length() - 12);
 
                 watchlistTitle = watchlistTitle.toLowerCase().replaceAll(" ", "+");
                 String uri = "http://www.omdbapi.com/?apikey=" + Account.APIKEY + "&t=" + watchlistTitle;
@@ -77,6 +81,25 @@ public class AccountService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean checkLogin(String login) {
+        if (Pattern.matches("ur\\d{9}", login)) {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://www.imdb.com/user/" + login))
+                    .build();
+            HttpResponse<String> response = null;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if (response != null) {
+                return response.statusCode() == 200;
+            } else return false;
+        } else return false;
     }
 
 }

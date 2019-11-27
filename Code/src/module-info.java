@@ -10,4 +10,5 @@ module imdb.data.manager {
     exports main.java.com.imdb_data_manager.controller;
 
     opens main.java.com.imdb_data_manager.application;
+    opens main.java.com.imdb_data_manager.controller;
 }
