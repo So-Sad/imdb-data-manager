@@ -7,18 +7,31 @@ import java.util.List;
 
 public class NewsList {
 
-    private List<News> news = new ArrayList<>();
+    private List<News> newsList = new ArrayList<>();
 
-    public NewsList(List<News> news) {
-        this.news = news;
+    public NewsList() {
     }
 
-    public List<News> getNews() {
-        return news;
+    public NewsList(List<News> newsList) {
+        this.newsList = newsList;
     }
 
-    public void setNews(List<News> news) {
-        this.news = news;
+    public boolean addNews(News news){
+        if(newsList.contains(news)){
+            return false;
+        }
+        else {
+            newsList.add(news);
+            return true;
+        }
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
     }
 
 }

@@ -8,21 +8,20 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="620.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox prefHeight="620.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.imdb_data_manager.controller.AuthorizationController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="620.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="203.0" layoutY="174.0" style="&#10;" text="Authorization" textAlignment="CENTER" wrapText="false">
+        <Label alignment="CENTER" layoutX="203.0" layoutY="212.0" style="&#10;" text="Authorization" textAlignment="CENTER" wrapText="false">
           <font>
             <Font size="40.0" />
           </font>
         </Label>
             <Line endX="539.0" layoutX="100.0" layoutY="40.0" startX="-100.0" />
             <Line endX="539.0" layoutX="100.0" layoutY="580.0" startX="-100.0" />
-            <Button layoutX="289.0" layoutY="420.0" mnemonicParsing="false" text="Sing In" />
-            <TextField layoutX="188.0" layoutY="286.0" prefHeight="31.0" prefWidth="270.0" />
-            <TextField layoutX="187.0" layoutY="348.0" prefHeight="31.0" prefWidth="270.0" />
-            <Button layoutX="521.0" layoutY="506.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Skip" />
+            <Button fx:id="signInBtn" layoutX="290.0" layoutY="380.0" mnemonicParsing="false" text="Sing In" />
+            <TextField fx:id="loginField" layoutX="188.0" layoutY="321.0" prefHeight="31.0" prefWidth="270.0" />
+            <Button fx:id="skipBtn" layoutX="521.0" layoutY="506.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Skip" />
       </children>
     </AnchorPane>
   </children>

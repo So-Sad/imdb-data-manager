@@ -1,5 +1,6 @@
 package main.java.com.imdb_data_manager.entity;
 
+import main.java.com.imdb_data_manager.list.MovieList;
 import main.java.com.imdb_data_manager.list.Rating;
 import main.java.com.imdb_data_manager.list.Watchlist;
 
@@ -7,14 +8,23 @@ public class Account {
 
     public static String APIKEY = "c712d04b";
 
+    private String nickName;
     private String login;
-    private String password;
-    private Watchlist watchlist;
-    private Rating rating;
+    private MovieList watchlist;
+    private MovieList rating;
 
-    public Account(String login, String password) {
+    public Account(String login, MovieList watchlist, MovieList rating) {
         this.login = login;
-        this.password = password;
+        this.watchlist = watchlist;
+        this.rating = rating;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getLogin() {
@@ -25,27 +35,19 @@ public class Account {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Watchlist getWatchlist() {
+    public MovieList getWatchlist() {
         return watchlist;
     }
 
-    public void setWatchlist(Watchlist watchlist) {
+    public void setWatchlist(MovieList watchlist) {
         this.watchlist = watchlist;
     }
 
-    public Rating getRating() {
+    public MovieList getRating() {
         return rating;
     }
 
-    public void setRating(Rating rating) {
+    public void setRating(MovieList rating) {
         this.rating = rating;
     }
 }

@@ -7,5 +7,7 @@ module imdb.data.manager {
     requires org.apache.httpcomponents.httpcore;
     requires java.net.http;
 
+    exports main.java.com.imdb_data_manager.controller;
+
     opens main.java.com.imdb_data_manager.application;
 }

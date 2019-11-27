@@ -3,6 +3,7 @@ package main.java.com.imdb_data_manager.service;
 import main.java.com.imdb_data_manager.entity.Account;
 import main.java.com.imdb_data_manager.entity.Movie;
 import main.java.com.imdb_data_manager.list.MovieList;
+
 import java.io.IOException;
 import java.net.URI;
 
@@ -18,19 +19,13 @@ import org.jsoup.select.Elements;
 @SuppressWarnings("Duplicates")
 public class MovieService {
 
-    private MovieList topRated;
-    private MovieList comingSoon;
-    private MovieList weekly;
-
-    public void collectTopRated() {
-
+    public void collectTopRated(MovieList movieList) {
         String titleID = "";
-        MovieList movieList = new MovieList();
 
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/chart/top").get();
-            Elements listRecommended = doc.select("div.wlb_ribbon"); //div.hover-over-image.zero-z-index a[href*=/title/tt]
-            for (Element element : listRecommended) {
+            Elements listTopRated = doc.select("div.wlb_ribbon");
+            for (Element element : listTopRated) {
                 titleID = element.attr("data-tconst");
 
                 String uri = "http://www.omdbapi.com/?apikey=" + Account.APIKEY + "&i=" + titleID;
@@ -44,23 +39,22 @@ public class MovieService {
                         movieResponse.getString("Genre"),
                         movieResponse.getString("Director"),
                         ratings.getString("Value")
-                        );
+                );
                 movieList.addMovie(movie);
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.topRated = movieList;
     }
 
-    public void collectComingSoon() {
+    public void collectComingSoon(MovieList movieList) {
         String title = "", name = "";
-        MovieList movieList = new MovieList();
+
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/movies-coming-soon").get();
-            Elements listRecommended = doc.select("h4 > a"); //div.hover-over-image.zero-z-index a[href*=/title/tt]
-            for (Element element : listRecommended) {
+            Elements listComingSoon = doc.select("h4 > a");
+            for (Element element : listComingSoon) {
                 title = element.attr("title");
                 if (!title.isEmpty()) {
                     name = title.substring(0, title.length() - 7);
@@ -84,16 +78,15 @@ public class MovieService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.comingSoon = movieList;
     }
 
-    public void collectWeekly() {
+    public void collectWeekly(MovieList movieList) {
         String title = "", name = "";
-        MovieList movieList = new MovieList();
+
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/movies-in-theaters").get();
-            Elements listRecommended = doc.select("h4 > a"); //div.hover-over-image.zero-z-index a[href*=/title/tt]
-            for (Element element : listRecommended) {
+            Elements listWeekly = doc.select("h4 > a");
+            for (Element element : listWeekly) {
                 title = element.attr("title");
                 if (!title.isEmpty()) {
                     name = title.substring(0, title.length() - 7);
@@ -117,10 +110,9 @@ public class MovieService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.weekly = movieList;
     }
 
-    private String getStringResponse(String uri){
+    public static String getStringResponse(String uri) {
         String responseString = "";
 
         HttpClient client = HttpClient.newHttpClient();
@@ -140,27 +132,4 @@ public class MovieService {
         return responseString;
     }
 
-    public MovieList getTopRated() {
-        return topRated;
-    }
-
-    public void setTopRated(MovieList topRated) {
-        this.topRated = topRated;
-    }
-
-    public MovieList getComingSoon() {
-        return comingSoon;
-    }
-
-    public void setComingSoon(MovieList comingSoon) {
-        this.comingSoon = comingSoon;
-    }
-
-    public MovieList getWeekly() {
-        return weekly;
-    }
-
-    public void setWeekly(MovieList weekly) {
-        this.weekly = weekly;
-    }
 }

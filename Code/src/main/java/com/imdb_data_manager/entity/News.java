@@ -6,6 +6,9 @@ public class News {
     private String description;
     private String date;
 
+    public News() {
+    }
+
     public News(String article, String description, String date) {
         this.article = article;
         this.description = description;
