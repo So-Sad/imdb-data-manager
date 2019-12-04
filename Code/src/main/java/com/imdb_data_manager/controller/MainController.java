@@ -106,6 +106,8 @@ public class MainController {
         try {
             if (AccountService.checkPrivate(account)) {
                 accountLabel.setText(account.getNickName() + " (private)");
+                accountPicker.setDisable(true);
+                refreshAccountBtn.setDisable(true);
             } else {
                 accountLabel.setText(account.getNickName());
                 initAccountPicker();
