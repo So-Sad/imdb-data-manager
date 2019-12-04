@@ -11,4 +11,7 @@ module imdb.data.manager {
 
     opens main.java.com.imdb_data_manager.application;
     opens main.java.com.imdb_data_manager.controller;
+    opens main.java.com.imdb_data_manager.entity;
+    opens main.java.com.imdb_data_manager.list;
+    opens main.java.com.imdb_data_manager.service;
 }

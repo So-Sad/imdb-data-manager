@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 public class MovieService {
 
     public void collectTopRated(MovieList movieList) {
-        String titleID = "";
+        String titleID;
 
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/chart/top").get();
@@ -32,16 +32,16 @@ public class MovieService {
                 String responseString = getStringResponse(uri);
 
                 JSONObject movieResponse = new JSONObject(responseString);
-                JSONObject ratings = movieResponse.getJSONArray("Ratings").getJSONObject(0);
 
-                Movie movie = new Movie(movieResponse.getString("Title"),
-                        movieResponse.getString("Plot"),
-                        movieResponse.getString("Genre"),
-                        movieResponse.getString("Director"),
-                        ratings.getString("Value")
-                );
-                movieList.addMovie(movie);
-
+                if (!movieResponse.getString("Response").equals("False")) {
+                    Movie movie = new Movie(movieResponse.getString("Title"),
+                            movieResponse.getString("Plot"),
+                            movieResponse.getString("Genre"),
+                            movieResponse.getString("Director"),
+                            movieResponse.getString("imdbRating")
+                    );
+                    movieList.addMovie(movie);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class MovieService {
     }
 
     public void collectComingSoon(MovieList movieList) {
-        String title = "", name = "";
+        String title, name;
 
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/movies-coming-soon").get();
@@ -64,15 +64,16 @@ public class MovieService {
                     String responseString = getStringResponse(uri);
 
                     JSONObject movieResponse = new JSONObject(responseString);
-                    JSONObject ratings = movieResponse.getJSONArray("Ratings").getJSONObject(0);
 
-                    Movie movie = new Movie(movieResponse.getString("Title"),
-                            movieResponse.getString("Plot"),
-                            movieResponse.getString("Genre"),
-                            movieResponse.getString("Director"),
-                            ratings.getString("Value")
-                    );
-                    movieList.addMovie(movie);
+                    if (!movieResponse.getString("Response").equals("False")) {
+                        Movie movie = new Movie(movieResponse.getString("Title"),
+                                movieResponse.getString("Plot"),
+                                movieResponse.getString("Genre"),
+                                movieResponse.getString("Director"),
+                                movieResponse.getString("imdbRating")
+                        );
+                        movieList.addMovie(movie);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -81,7 +82,7 @@ public class MovieService {
     }
 
     public void collectWeekly(MovieList movieList) {
-        String title = "", name = "";
+        String title, name;
 
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/movies-in-theaters").get();
@@ -96,15 +97,16 @@ public class MovieService {
                     String responseString = getStringResponse(uri);
 
                     JSONObject movieResponse = new JSONObject(responseString);
-                    JSONObject ratings = movieResponse.getJSONArray("Ratings").getJSONObject(0);
 
-                    Movie movie = new Movie(movieResponse.getString("Title"),
-                            movieResponse.getString("Plot"),
-                            movieResponse.getString("Genre"),
-                            movieResponse.getString("Director"),
-                            ratings.getString("Value")
-                    );
-                    movieList.addMovie(movie);
+                    if (!movieResponse.getString("Response").equals("False")) {
+                        Movie movie = new Movie(movieResponse.getString("Title"),
+                                movieResponse.getString("Plot"),
+                                movieResponse.getString("Genre"),
+                                movieResponse.getString("Director"),
+                                movieResponse.getString("imdbRating")
+                        );
+                        movieList.addMovie(movie);
+                    }
                 }
             }
         } catch (IOException e) {

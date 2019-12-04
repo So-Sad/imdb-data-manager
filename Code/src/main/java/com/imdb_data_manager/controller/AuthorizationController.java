@@ -13,9 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.java.com.imdb_data_manager.application.IMDBDataManagerApplication;
-import main.java.com.imdb_data_manager.entity.Account;
 import main.java.com.imdb_data_manager.service.AccountService;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class AuthorizationController {
@@ -29,16 +30,15 @@ public class AuthorizationController {
     @FXML
     private Button skipBtn;
 
-    private Account account = new Account();
-    String loginInputData = "";
+    private String loginInputData = "";
 
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         initLoginField();
     }
 
-    public void initLoginField(){
+    public void initLoginField() {
         loginField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -48,21 +48,22 @@ public class AuthorizationController {
     }
 
     @FXML
-    public void setSignInBtn(ActionEvent actionEvent){
-        if (AccountService.checkLogin(loginInputData)){
-            account.setLogin(loginInputData);
+    public void setSignInBtn(ActionEvent actionEvent) throws IOException {
+        if (AccountService.checkLogin(loginInputData)) {
+            writeLoginToFile(loginInputData);
             showMainWindow(actionEvent);
-        } else{
+        } else {
             showLoginAlert();
         }
     }
 
     @FXML
-    public void setSkipBtn(ActionEvent actionEvent){
+    public void setSkipBtn(ActionEvent actionEvent) throws IOException {
+        writeLoginToFile("guest");
         showMainWindow(actionEvent);
     }
 
-    private void showLoginAlert(){
+    private void showLoginAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning alert");
         alert.setHeaderText(null);
@@ -70,7 +71,7 @@ public class AuthorizationController {
         alert.showAndWait();
     }
 
-    private void showMainWindow(ActionEvent actionEvent){
+    private void showMainWindow(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(IMDBDataManagerApplication.class.getResource("mainWindow.fxml"));
@@ -92,5 +93,15 @@ public class AuthorizationController {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.hide();
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void writeLoginToFile(String login) throws IOException {
+        File file = new File("./Code/src/main/resources/login.txt");
+        file.createNewFile();
+        FileWriter writer = new FileWriter(file);
+        writer.write(login + "\n");
+        writer.flush();
+        writer.close();
     }
 }

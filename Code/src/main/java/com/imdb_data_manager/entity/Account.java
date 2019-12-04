@@ -14,6 +14,8 @@ public class Account {
     private MovieList rating;
 
     public Account() {
+        watchlist = new MovieList();
+        rating = new MovieList();
     }
 
     public Account(String login, MovieList watchlist, MovieList rating) {

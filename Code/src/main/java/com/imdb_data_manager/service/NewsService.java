@@ -11,27 +11,34 @@ import java.io.IOException;
 
 public class NewsService {
 
-    public void collectNews(NewsList newsList){
+    public void collectNews(NewsList newsList) {
         String newsPlot = "";
         String newsTitle = "";
-        News news = new News();
-
+        String newsDate = "";
         try {
             Document doc = Jsoup.connect("https://www.imdb.com/news/movie").get();
             Elements listNewsTitle = doc.select("h2.news-article__title");
-            for (Element element : listNewsTitle) {
-                newsTitle = element.text();
-                news.setArticle(newsTitle);
-            }
             Elements listNewsPlot = doc.select("div.news-article__content");
-            for (Element element : listNewsPlot){
-                newsPlot = element.text();
+            Elements listNewsDate = doc.select("li.ipl-inline-list__item.news-article__date");
+            for (int i = 0; i < listNewsTitle.size(); i++) {
+                News news = new News();
+
+                Element elementTitle = listNewsTitle.get(i);
+                newsTitle = elementTitle.text();
+                news.setArticle(newsTitle);
+
+                Element elementPlot = listNewsPlot.get(i);
+                newsPlot = elementPlot.text();
                 news.setDescription(newsPlot);
+
+                Element elementDate = listNewsDate.get(i);
+                newsDate = elementDate.text();
+                news.setDate(newsDate);
+
+                newsList.addNews(news);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        newsList.addNews(news);
     }
-
 }
