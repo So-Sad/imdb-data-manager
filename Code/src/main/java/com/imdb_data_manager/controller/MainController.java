@@ -87,7 +87,7 @@ public class MainController {
     }
 
     private void initAccount() {
-        readAccountFromFile();
+        account.setLogin(this.getAuthLogin());
         if (account.getLogin() == null) {
             accountLabel.setText("Sing In");
             accountPicker.setDisable(true);
@@ -95,6 +95,10 @@ public class MainController {
         } else {
             setAccount();
         }
+    }
+
+    private String getAuthLogin() {
+        return AuthorizationController.authLogin.equals("guest") ? null : AuthorizationController.authLogin;
     }
 
     private void setAccount() {
@@ -219,29 +223,18 @@ public class MainController {
         newsDateClmn.setPrefWidth(200);
         setNewsColumnCellProperties(newsDateClmn);
         newsContentClmn.setResizable(false);
+
+        accountPicker.getSelectionModel().clearSelection();
+        setPickerCell(accountPicker, "Account");
+        moviesPicker.getSelectionModel().clearSelection();
+        setPickerCell(moviesPicker, "Movie");
     }
 
-    private void readAccountFromFile() {
-        try {
-            File file = new File("./Code/src/main/resources/login.txt");
-            FileReader reader;
-            reader = new FileReader(file);
-            Scanner scan = new Scanner(reader);
-            String login = scan.nextLine();
-            if (!login.equals("guest")) {
-                account.setLogin(login);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setPickerCell(ComboBox comboBox, String promptText){
+    private void setPickerCell(ComboBox comboBox, String promptText) {
         comboBox.setButtonCell(new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty) ;
+                super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(promptText);
                 } else {

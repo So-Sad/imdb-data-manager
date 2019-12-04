@@ -21,11 +21,11 @@
         </Label>
             <TableView fx:id="movieTable" layoutY="79.0" prefHeight="640.0" prefWidth="1200.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="79.0">
               <columns>
-                  <TableColumn fx:id="movieTitleClmn" prefWidth="251.0" text="Movie" />
-                  <TableColumn fx:id="movieDescriptionClmn" prefWidth="532.0" text="Description" />
-                  <TableColumn fx:id="movieGenresClmn" prefWidth="163.0" text="Genre" />
-                  <TableColumn fx:id="movieDirectorClmn" prefWidth="155.0" text="Director" />
-                  <TableColumn fx:id="movieRatingClmn" prefWidth="98.0" text="Rating" />
+                  <TableColumn fx:id="movieTitleClmn" prefWidth="251.0" resizable="false" text="Movie" />
+                  <TableColumn fx:id="movieDescriptionClmn" prefWidth="532.0" resizable="false" text="Description" />
+                  <TableColumn fx:id="movieGenresClmn" prefWidth="163.0" resizable="false" text="Genre" />
+                  <TableColumn fx:id="movieDirectorClmn" prefWidth="155.0" resizable="false" text="Director" />
+                  <TableColumn fx:id="movieRatingClmn" prefWidth="98.0" resizable="false" text="Rating" />
               </columns>
             </TableView>
             <Line endX="1098.0" layoutX="101.0" layoutY="720.0" startX="-100.0" />

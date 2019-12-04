@@ -16,11 +16,10 @@ public class NewsList {
         this.newsList = newsList;
     }
 
-    public boolean addNews(News news){
-        if(newsList.contains(news)){
+    public boolean addNews(News news) {
+        if (newsList.contains(news)) {
             return false;
-        }
-        else {
+        } else {
             newsList.add(news);
             return true;
         }

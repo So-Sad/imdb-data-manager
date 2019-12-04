@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 import main.java.com.imdb_data_manager.application.IMDBDataManagerApplication;
 import main.java.com.imdb_data_manager.service.AccountService;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class AuthorizationController {
@@ -31,7 +29,7 @@ public class AuthorizationController {
     private Button skipBtn;
 
     private String loginInputData = "";
-
+    public static String authLogin = "";
 
     @FXML
     public void initialize() {
@@ -50,7 +48,7 @@ public class AuthorizationController {
     @FXML
     public void setSignInBtn(ActionEvent actionEvent) throws IOException {
         if (AccountService.checkLogin(loginInputData)) {
-            writeLoginToFile(loginInputData);
+            authLogin = loginInputData;
             showMainWindow(actionEvent);
         } else {
             showLoginAlert();
@@ -59,7 +57,7 @@ public class AuthorizationController {
 
     @FXML
     public void setSkipBtn(ActionEvent actionEvent) throws IOException {
-        writeLoginToFile("guest");
+        authLogin = "guest";
         showMainWindow(actionEvent);
     }
 
@@ -93,15 +91,5 @@ public class AuthorizationController {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.hide();
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void writeLoginToFile(String login) throws IOException {
-        File file = new File("./Code/src/main/resources/login.txt");
-        file.createNewFile();
-        FileWriter writer = new FileWriter(file);
-        writer.write(login + "\n");
-        writer.flush();
-        writer.close();
     }
 }

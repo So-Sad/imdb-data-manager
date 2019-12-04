@@ -16,11 +16,10 @@ public class MovieList {
         this.movies = movies;
     }
 
-    public boolean addMovie(Movie movie){
-        if(movies.contains(movie)){
+    public boolean addMovie(Movie movie) {
+        if (movies.contains(movie)) {
             return false;
-        }
-        else {
+        } else {
             movies.add(movie);
             return true;
         }
