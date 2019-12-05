@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.java.com.imdb_data_manager.entity.Account;
 import main.java.com.imdb_data_manager.entity.Movie;
@@ -254,6 +255,7 @@ public class MainController {
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(tableColumn.widthProperty());
             text.textProperty().bind(cell.itemProperty());
+            text.setFill(Color.WHITESMOKE);
             return cell;
         });
     }
@@ -266,6 +268,7 @@ public class MainController {
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(tableColumn.widthProperty());
             text.textProperty().bind(cell.itemProperty());
+            text.setFill(Color.WHITESMOKE);
             return cell;
         });
     }
