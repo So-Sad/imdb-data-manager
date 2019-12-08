@@ -18,10 +18,7 @@ import main.java.com.imdb_data_manager.service.AccountService;
 import main.java.com.imdb_data_manager.service.MovieService;
 import main.java.com.imdb_data_manager.service.NewsService;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 @SuppressWarnings({"unchecked", "Duplicates"})
 public class MainController {
@@ -69,6 +66,12 @@ public class MainController {
     private TableColumn<News, String> newsDateClmn = new TableColumn<News, String>("Date");
 
     private Account account = new Account();
+    private boolean ratingsFlag = false;
+    private boolean watchlistFlag = false;
+    private boolean topRatedFlag = false;
+    private boolean weeklyFlag = false;
+    private boolean comingSoonFlag = false;
+    private boolean newsFlag = false;
     private MovieList topRatedList = new MovieList();
     private MovieList weeklyList = new MovieList();
     private MovieList comingSoonList = new MovieList();
@@ -136,15 +139,21 @@ public class MainController {
                 setPickerCell(moviesPicker, "Movie");
 
                 if (newValue.equals(accountPickerList.get(0))) {             //ratings
-                    accountService.collectRating(account);
+                    if (!ratingsFlag) {
+                        accountService.collectRating(account);
+                    }
                     ObservableList<Movie> movieObservableList = FXCollections.observableList(account.getRating().getMovies());
                     movieTable.setItems(movieObservableList);
                     movieTable.getColumns().setAll(movieTitleClmn, movieDescriptionClmn, movieGenresClmn, movieDirectorClmn, movieRatingClmn);
+                    ratingsFlag = true;
                 } else if (newValue.equals(accountPickerList.get(1))) {      //watchlist
-                    accountService.collectWatchList(account);
+                    if(!watchlistFlag) {
+                        accountService.collectWatchList(account);
+                    }
                     ObservableList<Movie> movieObservableList = FXCollections.observableList(account.getWatchlist().getMovies());
                     movieTable.setItems(movieObservableList);
                     movieTable.getColumns().setAll(movieTitleClmn, movieDescriptionClmn, movieGenresClmn, movieDirectorClmn, movieRatingClmn);
+                    watchlistFlag = true;
                 }
             }
         });
@@ -165,22 +174,29 @@ public class MainController {
                 setPickerCell(accountPicker, "Account");
 
                 if (newValue.equals(moviesPickerList.get(0))) {             //top rated
-                    movieService.collectTopRated(topRatedList);
+                    if (!topRatedFlag) {
+                        movieService.collectTopRated(topRatedList);
+                    }
                     ObservableList<Movie> movieObservableList = FXCollections.observableList(topRatedList.getMovies());
                     movieTable.setItems(movieObservableList);
                     movieTable.getColumns().setAll(movieTitleClmn, movieDescriptionClmn, movieGenresClmn, movieDirectorClmn, movieRatingClmn);
-
+                    topRatedFlag = true;
                 } else if (newValue.equals(moviesPickerList.get(1))) {       //weekly
-                    movieService.collectWeekly(weeklyList);
+                    if(!weeklyFlag) {
+                        movieService.collectWeekly(weeklyList);
+                    }
                     ObservableList<Movie> movieObservableList = FXCollections.observableList(weeklyList.getMovies());
                     movieTable.setItems(movieObservableList);
                     movieTable.getColumns().setAll(movieTitleClmn, movieDescriptionClmn, movieGenresClmn, movieDirectorClmn, movieRatingClmn);
-
+                    weeklyFlag = true;
                 } else if (newValue.equals(moviesPickerList.get(2))) {       //coming soon
-                    movieService.collectComingSoon(comingSoonList);
+                    if (!comingSoonFlag) {
+                        movieService.collectComingSoon(comingSoonList);
+                    }
                     ObservableList<Movie> movieObservableList = FXCollections.observableList(comingSoonList.getMovies());
                     movieTable.setItems(movieObservableList);
                     movieTable.getColumns().setAll(movieTitleClmn, movieDescriptionClmn, movieGenresClmn, movieDirectorClmn, movieRatingClmn);
+                    comingSoonFlag = true;
                 }
             }
         });
@@ -201,7 +217,9 @@ public class MainController {
 
     @FXML
     private void setNewsBtn() {
-        newsService.collectNews(newsList);
+        if (!newsFlag) {
+            newsService.collectNews(newsList);
+        }
 
         movieTable.getColumns().clear();
         ObservableList<News> newsObservableList = FXCollections.observableList(newsList.getNewsList());
@@ -210,6 +228,7 @@ public class MainController {
         setNewsTable();
         movieTable.getColumns().addAll(newsArticleClmn, newsContentClmn, newsDateClmn);
         newsBtn.setDisable(true);
+        newsFlag = true;
     }
 
     private void setNewsTable() {
